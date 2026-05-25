@@ -269,6 +269,31 @@
     to  { clip-path: inset(0 0 0 0); }
   }
 
+  /* floral dividers around the letter */
+  .bloom{
+    display:block;
+    width: clamp(110px, 32vw, 170px);
+    height:auto;
+    margin: clamp(6px,1.8vw,14px) auto;
+    opacity:0;
+    transform: scale(.7) translateY(6px);
+    transition: opacity 1.1s ease, transform 1.2s cubic-bezier(.34,.2,.2,1);
+    filter: drop-shadow(0 1px 1px rgba(120,60,40,.18));
+  }
+  #stage.letteropen .bloom-top{ opacity:.92; transform: scale(1) translateY(0); transition-delay:.05s; }
+  #stage.letteropen .bloom-bottom{ opacity:.92; transform: scale(1) translateY(0); transition-delay:8.2s; }
+  /* corner sprigs */
+  .corner{
+    position:absolute; width: clamp(38px, 11vw, 64px); height:auto;
+    opacity:0; transition: opacity 1.4s ease;
+    pointer-events:none;
+  }
+  .corner.tl{ top:-6px; left:-6px; transform: rotate(0deg); }
+  .corner.tr{ top:-6px; right:-6px; transform: scaleX(-1); }
+  .corner.bl{ bottom:-6px; left:-6px; transform: scaleY(-1); }
+  .corner.br{ bottom:-6px; right:-6px; transform: scale(-1,-1); }
+  #stage.letteropen .corner{ opacity:.85; transition-delay:.3s; }
+
   /* ---- intro text + button ---- */
   .intro{ position:absolute; inset:0; z-index:30; display:flex; flex-direction:column;
     align-items:center; justify-content:center; gap: clamp(28px,7vh,60px);
@@ -345,8 +370,139 @@
         <div class="centerpiece">
           <div class="letter" id="letter">
             <div class="paper">
+              <svg class="corner tl" viewBox="0 0 60 60" aria-hidden="true">
+                <g fill="none" stroke="#a26b48" stroke-width=".9" stroke-linecap="round" opacity=".55">
+                  <path d="M4 4 Q22 8 32 24 Q38 36 30 48"/>
+                  <path d="M14 22 Q22 24 28 30"/>
+                </g>
+                <ellipse cx="13" cy="22" rx="4" ry="2" fill="#8aa67a" transform="rotate(-30 13 22)"/>
+                <ellipse cx="22" cy="14" rx="3.4" ry="1.7" fill="#8aa67a" transform="rotate(-55 22 14)"/>
+                <ellipse cx="26" cy="34" rx="3.6" ry="1.8" fill="#8aa67a" transform="rotate(20 26 34)"/>
+                <g transform="translate(32,24)">
+                  <circle cx="0" cy="-4.5" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="4.3" cy="-1.4" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="2.6" cy="3.6" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="-2.6" cy="3.6" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="-4.3" cy="-1.4" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="0" cy="0" r="1.9" fill="#c66a52"/>
+                </g>
+                <g transform="translate(20,38) scale(.7)">
+                  <circle cx="0" cy="-4.5" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="4.3" cy="-1.4" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="2.6" cy="3.6" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="-2.6" cy="3.6" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="-4.3" cy="-1.4" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="0" cy="0" r="1.9" fill="#c8857a"/>
+                </g>
+              </svg>
+              <svg class="corner tr" viewBox="0 0 60 60" aria-hidden="true">
+                <g fill="none" stroke="#a26b48" stroke-width=".9" stroke-linecap="round" opacity=".55">
+                  <path d="M4 4 Q22 8 32 24 Q38 36 30 48"/>
+                  <path d="M14 22 Q22 24 28 30"/>
+                </g>
+                <ellipse cx="13" cy="22" rx="4" ry="2" fill="#8aa67a" transform="rotate(-30 13 22)"/>
+                <ellipse cx="22" cy="14" rx="3.4" ry="1.7" fill="#8aa67a" transform="rotate(-55 22 14)"/>
+                <ellipse cx="26" cy="34" rx="3.6" ry="1.8" fill="#8aa67a" transform="rotate(20 26 34)"/>
+                <g transform="translate(32,24)">
+                  <circle cx="0" cy="-4.5" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="4.3" cy="-1.4" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="2.6" cy="3.6" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="-2.6" cy="3.6" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="-4.3" cy="-1.4" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="0" cy="0" r="1.9" fill="#c66a52"/>
+                </g>
+                <g transform="translate(20,38) scale(.7)">
+                  <circle cx="0" cy="-4.5" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="4.3" cy="-1.4" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="2.6" cy="3.6" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="-2.6" cy="3.6" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="-4.3" cy="-1.4" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="0" cy="0" r="1.9" fill="#c8857a"/>
+                </g>
+              </svg>
+              <svg class="corner bl" viewBox="0 0 60 60" aria-hidden="true">
+                <g fill="none" stroke="#a26b48" stroke-width=".9" stroke-linecap="round" opacity=".55">
+                  <path d="M4 4 Q22 8 32 24 Q38 36 30 48"/>
+                  <path d="M14 22 Q22 24 28 30"/>
+                </g>
+                <ellipse cx="13" cy="22" rx="4" ry="2" fill="#8aa67a" transform="rotate(-30 13 22)"/>
+                <ellipse cx="22" cy="14" rx="3.4" ry="1.7" fill="#8aa67a" transform="rotate(-55 22 14)"/>
+                <ellipse cx="26" cy="34" rx="3.6" ry="1.8" fill="#8aa67a" transform="rotate(20 26 34)"/>
+                <g transform="translate(32,24)">
+                  <circle cx="0" cy="-4.5" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="4.3" cy="-1.4" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="2.6" cy="3.6" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="-2.6" cy="3.6" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="-4.3" cy="-1.4" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="0" cy="0" r="1.9" fill="#c66a52"/>
+                </g>
+                <g transform="translate(20,38) scale(.7)">
+                  <circle cx="0" cy="-4.5" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="4.3" cy="-1.4" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="2.6" cy="3.6" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="-2.6" cy="3.6" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="-4.3" cy="-1.4" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="0" cy="0" r="1.9" fill="#c8857a"/>
+                </g>
+              </svg>
+              <svg class="corner br" viewBox="0 0 60 60" aria-hidden="true">
+                <g fill="none" stroke="#a26b48" stroke-width=".9" stroke-linecap="round" opacity=".55">
+                  <path d="M4 4 Q22 8 32 24 Q38 36 30 48"/>
+                  <path d="M14 22 Q22 24 28 30"/>
+                </g>
+                <ellipse cx="13" cy="22" rx="4" ry="2" fill="#8aa67a" transform="rotate(-30 13 22)"/>
+                <ellipse cx="22" cy="14" rx="3.4" ry="1.7" fill="#8aa67a" transform="rotate(-55 22 14)"/>
+                <ellipse cx="26" cy="34" rx="3.6" ry="1.8" fill="#8aa67a" transform="rotate(20 26 34)"/>
+                <g transform="translate(32,24)">
+                  <circle cx="0" cy="-4.5" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="4.3" cy="-1.4" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="2.6" cy="3.6" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="-2.6" cy="3.6" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="-4.3" cy="-1.4" r="3.4" fill="#e9a8a8"/>
+                  <circle cx="0" cy="0" r="1.9" fill="#c66a52"/>
+                </g>
+                <g transform="translate(20,38) scale(.7)">
+                  <circle cx="0" cy="-4.5" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="4.3" cy="-1.4" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="2.6" cy="3.6" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="-2.6" cy="3.6" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="-4.3" cy="-1.4" r="3.4" fill="#f0bcbc"/>
+                  <circle cx="0" cy="0" r="1.9" fill="#c8857a"/>
+                </g>
+              </svg>
               <!-- ✏️ EDIT YOUR MESSAGE HERE — one .line per line of writing -->
               <div class="ink">
+                <svg class="bloom bloom-top" viewBox="0 0 140 26" aria-hidden="true">
+                  <path d="M6 16 Q35 6 70 14 Q105 22 134 14" fill="none" stroke="#a26b48" stroke-width=".7" stroke-linecap="round" opacity=".55"/>
+                  <ellipse cx="38" cy="20" rx="4" ry="1.6" fill="#8aa67a" transform="rotate(18 38 20)"/>
+                  <ellipse cx="102" cy="20" rx="4" ry="1.6" fill="#8aa67a" transform="rotate(-18 102 20)"/>
+                  <ellipse cx="22" cy="10" rx="3" ry="1.3" fill="#8aa67a" transform="rotate(-30 22 10)"/>
+                  <ellipse cx="118" cy="10" rx="3" ry="1.3" fill="#8aa67a" transform="rotate(30 118 10)"/>
+                  <g transform="translate(22,14)">
+                    <circle cx="0" cy="-3.6" r="2.7" fill="#eab1b1"/>
+                    <circle cx="3.4" cy="-1.1" r="2.7" fill="#eab1b1"/>
+                    <circle cx="2.1" cy="2.9" r="2.7" fill="#eab1b1"/>
+                    <circle cx="-2.1" cy="2.9" r="2.7" fill="#eab1b1"/>
+                    <circle cx="-3.4" cy="-1.1" r="2.7" fill="#eab1b1"/>
+                    <circle cx="0" cy="0" r="1.5" fill="#c8714e"/>
+                  </g>
+                  <g transform="translate(70,12)">
+                    <circle cx="0" cy="-5" r="3.6" fill="#df8a8a"/>
+                    <circle cx="4.8" cy="-1.6" r="3.6" fill="#df8a8a"/>
+                    <circle cx="2.9" cy="4" r="3.6" fill="#df8a8a"/>
+                    <circle cx="-2.9" cy="4" r="3.6" fill="#df8a8a"/>
+                    <circle cx="-4.8" cy="-1.6" r="3.6" fill="#df8a8a"/>
+                    <circle cx="0" cy="0" r="2" fill="#b8543a"/>
+                  </g>
+                  <g transform="translate(118,14)">
+                    <circle cx="0" cy="-3.6" r="2.7" fill="#eab1b1"/>
+                    <circle cx="3.4" cy="-1.1" r="2.7" fill="#eab1b1"/>
+                    <circle cx="2.1" cy="2.9" r="2.7" fill="#eab1b1"/>
+                    <circle cx="-2.1" cy="2.9" r="2.7" fill="#eab1b1"/>
+                    <circle cx="-3.4" cy="-1.1" r="2.7" fill="#eab1b1"/>
+                    <circle cx="0" cy="0" r="1.5" fill="#c8714e"/>
+                  </g>
+                </svg>
                 <span class="line" style="animation-delay:.2s">My Dearest,</span>
                 <span class="line small" style="animation-delay:1.3s">Some feelings are far too vast for ordinary days,</span>
                 <span class="line small" style="animation-delay:2.5s">so I built you a little stage to hold them.</span>
@@ -354,6 +510,37 @@
                 <span class="line small" style="animation-delay:4.9s">and behind every curtain I have ever drawn,</span>
                 <span class="line small" style="animation-delay:6.1s">it was always your name I waited to reveal.</span>
                 <span class="line sign" style="animation-delay:7.6s">Forever yours</span>
+                <svg class="bloom bloom-bottom" viewBox="0 0 140 26" aria-hidden="true">
+                  <path d="M6 12 Q35 22 70 14 Q105 6 134 12" fill="none" stroke="#a26b48" stroke-width=".7" stroke-linecap="round" opacity=".55"/>
+                  <ellipse cx="38" cy="8" rx="4" ry="1.6" fill="#8aa67a" transform="rotate(-18 38 8)"/>
+                  <ellipse cx="102" cy="8" rx="4" ry="1.6" fill="#8aa67a" transform="rotate(18 102 8)"/>
+                  <ellipse cx="22" cy="18" rx="3" ry="1.3" fill="#8aa67a" transform="rotate(30 22 18)"/>
+                  <ellipse cx="118" cy="18" rx="3" ry="1.3" fill="#8aa67a" transform="rotate(-30 118 18)"/>
+                  <g transform="translate(22,14)">
+                    <circle cx="0" cy="-3.6" r="2.7" fill="#eab1b1"/>
+                    <circle cx="3.4" cy="-1.1" r="2.7" fill="#eab1b1"/>
+                    <circle cx="2.1" cy="2.9" r="2.7" fill="#eab1b1"/>
+                    <circle cx="-2.1" cy="2.9" r="2.7" fill="#eab1b1"/>
+                    <circle cx="-3.4" cy="-1.1" r="2.7" fill="#eab1b1"/>
+                    <circle cx="0" cy="0" r="1.5" fill="#c8714e"/>
+                  </g>
+                  <g transform="translate(70,14)">
+                    <circle cx="0" cy="-5" r="3.6" fill="#df8a8a"/>
+                    <circle cx="4.8" cy="-1.6" r="3.6" fill="#df8a8a"/>
+                    <circle cx="2.9" cy="4" r="3.6" fill="#df8a8a"/>
+                    <circle cx="-2.9" cy="4" r="3.6" fill="#df8a8a"/>
+                    <circle cx="-4.8" cy="-1.6" r="3.6" fill="#df8a8a"/>
+                    <circle cx="0" cy="0" r="2" fill="#b8543a"/>
+                  </g>
+                  <g transform="translate(118,14)">
+                    <circle cx="0" cy="-3.6" r="2.7" fill="#eab1b1"/>
+                    <circle cx="3.4" cy="-1.1" r="2.7" fill="#eab1b1"/>
+                    <circle cx="2.1" cy="2.9" r="2.7" fill="#eab1b1"/>
+                    <circle cx="-2.1" cy="2.9" r="2.7" fill="#eab1b1"/>
+                    <circle cx="-3.4" cy="-1.1" r="2.7" fill="#eab1b1"/>
+                    <circle cx="0" cy="0" r="1.5" fill="#c8714e"/>
+                  </g>
+                </svg>
               </div>
             </div>
           </div>
