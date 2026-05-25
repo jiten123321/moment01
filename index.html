@@ -225,7 +225,7 @@
     transition: opacity 1.6s ease, transform 1.6s ease;
     filter: drop-shadow(0 16px 26px rgba(0,0,0,.55));
   }
-  #stage.envelope .envelope,
+  #stage.env-ready .envelope,
   #stage.opening .envelope{ opacity:1; transform: translateY(0) scale(1); animation: floaty 5s ease-in-out infinite; }
   @keyframes floaty{ 0%,100%{ margin-top:0 } 50%{ margin-top:-10px } }
 
@@ -303,13 +303,13 @@
     font-family:'Parisienne', cursive;
     font-size: clamp(22px, 6.6vw, 36px);
     line-height:1.5;
-    white-space:nowrap;
     overflow:hidden;
     clip-path: inset(0 100% 0 0);
     opacity:.92;
     text-shadow: 0 1px 0 rgba(255,255,255,.4);
+    word-break: break-word;
   }
-  .ink .small{ font-size: clamp(18px,5vw,27px); }
+  .ink .small{ font-size: clamp(15px,4.2vw,24px); }
   .ink .sign{
     font-family:'Pinyon Script', cursive;
     font-size: clamp(26px, 8vw, 44px);
@@ -448,7 +448,7 @@
   let started = false;
 
   /* ---------- reveal the envelope after the intro line ---------- */
-  setTimeout(()=>{ stage.classList.remove('intro'); stage.classList.add('envelope'); }, 4200);
+  setTimeout(()=>{ stage.classList.remove('intro'); stage.classList.add('env-ready'); }, 4200);
 
   /* =========================================================
      PARTICLES  (one canvas: dust always, petals/glitter/burst later)
@@ -633,7 +633,7 @@
     intro.classList.add('gone');
 
     // curtains open + orchestral swell + camera push-in
-    stage.classList.remove('intro','envelope');
+    stage.classList.remove('intro','env-ready');
     stage.classList.add('opening');
     setMaster(0.22, 3.2);
     setTimeout(()=>chime(220,0,0.07), 200);  // low warm hit as curtains move
@@ -656,7 +656,7 @@
   }
 
   beginBtn.addEventListener('click', beginShow);
-  envelope.addEventListener('click', ()=>{ if(stage.classList.contains('envelope')) beginShow(); });
+  envelope.addEventListener('click', ()=>{ if(stage.classList.contains('env-ready')) beginShow(); });
 })();
 </script>
 </body>
