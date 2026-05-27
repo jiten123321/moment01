@@ -734,13 +734,9 @@
     if(started) return; started = true;
 
     initAudio();
-    // iOS motion permission (needs the gesture we're already in)
-    if(typeof DeviceOrientationEvent !== 'undefined' &&
-       typeof DeviceOrientationEvent.requestPermission === 'function'){
-      DeviceOrientationEvent.requestPermission().then(s=>{
-        if(s==='granted') window.addEventListener('deviceorientation', orient);
-      }).catch(()=>{});
-    } else if(window.DeviceOrientationEvent){
+    // attach orientation listener only where it works without prompting
+    if(window.DeviceOrientationEvent &&
+       typeof DeviceOrientationEvent.requestPermission !== 'function'){
       window.addEventListener('deviceorientation', orient);
     }
 
