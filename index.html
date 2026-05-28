@@ -262,12 +262,26 @@
     font-size: clamp(26px, 8vw, 44px);
     margin-top:.35em; color:#5a3414;
   }
+  .ink .body{
+    display:block;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size: clamp(13px, 3.5vw, 18px);
+    line-height:1.58;
+    letter-spacing:.2px;
+    margin:.6em auto 0;
+    max-width:34em;
+    color:#4a2c16;
+    opacity:0; transform: translateY(10px);
+  }
   /* ink-writing reveal */
   #stage.letteropen .ink .line{ animation: writeIn .9s ease forwards; }
   @keyframes writeIn{
     from{ clip-path: inset(0 100% 0 0); }
     to  { clip-path: inset(0 0 0 0); }
   }
+  #stage.letteropen .ink .body{ animation: fadeUp 1.2s ease forwards; }
+  @keyframes fadeUp{ to{ opacity:.95; transform:translateY(0); } }
 
   /* floral dividers around the letter */
   .bloom{
@@ -281,7 +295,7 @@
     filter: drop-shadow(0 1px 1px rgba(120,60,40,.18));
   }
   #stage.letteropen .bloom-top{ opacity:.92; transform: scale(1) translateY(0); transition-delay:.05s; }
-  #stage.letteropen .bloom-bottom{ opacity:.92; transform: scale(1) translateY(0); transition-delay:8.2s; }
+  #stage.letteropen .bloom-bottom{ opacity:.92; transform: scale(1) translateY(0); transition-delay:5.4s; }
   /* corner sprigs */
   .corner{
     position:absolute; width: clamp(38px, 11vw, 64px); height:auto;
@@ -503,13 +517,10 @@
                     <circle cx="0" cy="0" r="1.5" fill="#c8714e"/>
                   </g>
                 </svg>
-                <span class="line" style="animation-delay:.2s">My Dearest,</span>
-                <span class="line small" style="animation-delay:1.3s">Some feelings are far too vast for ordinary days,</span>
-                <span class="line small" style="animation-delay:2.5s">so I built you a little stage to hold them.</span>
-                <span class="line small" style="animation-delay:3.7s">Every light here glows because of you —</span>
-                <span class="line small" style="animation-delay:4.9s">and behind every curtain I have ever drawn,</span>
-                <span class="line small" style="animation-delay:6.1s">it was always your name I waited to reveal.</span>
-                <span class="line sign" style="animation-delay:7.6s">Forever yours</span>
+                <span class="line" style="animation-delay:.3s">Hey Ladoo ❤️</span>
+                <p class="body" style="animation-delay:1.2s">I just want you to know how important you are in my life. Your presence brings a warmth and peace that I can't really explain. Even your small messages and little efforts mean a lot to me.</p>
+                <p class="body" style="animation-delay:2.6s">I truly admire how strong you stay through everything, even during the quiet battles nobody sees. You carry so much in your heart and still keep going, and that strength is beautiful.</p>
+                <p class="body" style="animation-delay:4s">No matter what, I hope you remember that you are appreciated, valued, and deeply important to me. ❤️</p>
                 <svg class="bloom bloom-bottom" viewBox="0 0 140 26" aria-hidden="true">
                   <path d="M6 12 Q35 22 70 14 Q105 6 134 12" fill="none" stroke="#a26b48" stroke-width=".7" stroke-linecap="round" opacity=".55"/>
                   <ellipse cx="38" cy="8" rx="4" ry="1.6" fill="#8aa67a" transform="rotate(-18 38 8)"/>
