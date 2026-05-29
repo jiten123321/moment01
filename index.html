@@ -575,6 +575,7 @@
     </div>
 
     <button class="sound-toggle" id="soundToggle" aria-label="Toggle sound">♪</button>
+    <audio id="song" src="perfect.mp3" loop preload="auto"></audio>
   </div>
 
 <script>
@@ -671,56 +672,38 @@
   loop();
 
   /* =========================================================
-     AUDIO  (synthesised warm pad + swell + sparkle chimes)
+     AUDIO  (Ed Sheeran — Perfect)
      ========================================================= */
-  let actx, master, soundOn = true;
-  function initAudio(){
-    if(actx){ actx.resume(); return; }
-    try{
-      actx = new (window.AudioContext || window.webkitAudioContext)();
-    }catch(e){ return; }
-    master = actx.createGain(); master.gain.value = 0.0001; master.connect(actx.destination);
-    const lp = actx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value = 1100; lp.Q.value=.4; lp.connect(master);
-    const pad = actx.createGain(); pad.gain.value = .5; pad.connect(lp);
-    // warm chord: A2, E3, A3, C#4, E4  (A major — hopeful, tender)
-    [110, 164.81, 220, 277.18, 329.63].forEach((f,i)=>{
-      const o = actx.createOscillator(); o.type = (i%2)?'sine':'triangle'; o.frequency.value = f;
-      const g = actx.createGain(); g.gain.value = .14/(i*0.7+1);
-      // slight detune shimmer
-      o.detune.value = rand(-4,4);
-      o.connect(g); g.connect(pad); o.start();
-    });
-    // breathing LFO
-    const lfo = actx.createOscillator(); lfo.frequency.value = .07;
-    const lg = actx.createGain(); lg.gain.value = .14; lfo.connect(lg); lg.connect(pad.gain); lfo.start();
-    // gentle fade in
-    master.gain.exponentialRampToValueAtTime(0.07, actx.currentTime + 2.5);
+  const song = document.getElementById('song');
+  const VOL = 0.85;
+  let soundOn = true;
+  let fadeRAF = 0;
+
+  function fadeAudio(target, ms){
+    if(!song) return;
+    cancelAnimationFrame(fadeRAF);
+    const start = song.volume, t0 = performance.now();
+    (function step(now){
+      const k = ms <= 0 ? 1 : Math.min(1, (now - t0) / ms);
+      song.volume = Math.max(0, Math.min(1, start + (target - start) * k));
+      if(k < 1) fadeRAF = requestAnimationFrame(step);
+    })(t0);
   }
-  function setMaster(v, t){
-    if(!actx || !master) return;
-    const target = soundOn ? v : 0.0001;
-    master.gain.cancelScheduledValues(actx.currentTime);
-    master.gain.exponentialRampToValueAtTime(Math.max(target,0.0001), actx.currentTime + (t||1.5));
-  }
-  function chime(freq, when, vol){
-    if(!actx || !soundOn) return;
-    const o = actx.createOscillator(); o.type='sine'; o.frequency.value=freq;
-    const g = actx.createGain(); const n = actx.currentTime + (when||0);
-    o.connect(g); g.connect(master);
-    g.gain.setValueAtTime(0.0001, n);
-    g.gain.exponentialRampToValueAtTime(vol||0.10, n+0.03);
-    g.gain.exponentialRampToValueAtTime(0.0001, n+1.6);
-    o.start(n); o.stop(n+1.7);
-  }
-  function magicArp(){ // sparkly ascending run on the reveal
-    const notes=[523.25,659.25,783.99,1046.5,1318.5,1567.98];
-    notes.forEach((f,i)=> chime(f, i*0.13, 0.09));
+  function startMusic(){
+    if(!song) return;
+    song.volume = 0;
+    const p = song.play();
+    if(p && p.catch) p.catch(()=>{});
+    fadeAudio(soundOn ? VOL : 0, 3200);
   }
 
   soundToggle.addEventListener('click', ()=>{
     soundOn = !soundOn;
     soundToggle.textContent = soundOn ? '♪' : '🔇';
-    setMaster(stage.classList.contains('final') ? 0.13 : 0.20, 0.6);
+    if(song){
+      if(soundOn && song.paused) song.play().catch(()=>{});
+      fadeAudio(soundOn ? VOL : 0, 600);
+    }
   });
 
   /* =========================================================
@@ -745,7 +728,7 @@
   function beginShow(){
     if(started) return; started = true;
 
-    initAudio();
+    startMusic();
     // attach orientation listener only where it works without prompting
     if(window.DeviceOrientationEvent &&
        typeof DeviceOrientationEvent.requestPermission !== 'function'){
@@ -754,25 +737,20 @@
 
     intro.classList.add('gone');
 
-    // curtains open + orchestral swell + camera push-in
+    // curtains open + camera push-in
     stage.classList.remove('intro');
     stage.classList.add('opening');
-    setMaster(0.22, 3.2);
-    setTimeout(()=>chime(220,0,0.07), 200);  // low warm hit as curtains move
 
     // letter rises & writes itself once curtains are mostly open
     setTimeout(()=>{
       stage.classList.add('letteropen');
       glitterOn = true;
       burst(W/2, H/2);
-      magicArp();
     }, 3900);
 
     // settle into the final glow
     setTimeout(()=>{
       stage.classList.add('final');
-      setMaster(0.14, 4);
-      chime(659.25, 0, 0.06);
     }, 13000);
   }
 
